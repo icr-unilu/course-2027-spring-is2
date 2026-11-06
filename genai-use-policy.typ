@@ -1,5 +1,9 @@
-#import "@preview/touying:0.6.3": *
+#import "@preview/touying:0.7.4": *
 #import themes.metropolis: *
+#import "@preview/board-n-pieces:0.9.0": *
+#import "@preview/fontawesome:0.6.2": *
+#import "@preview/ctheorems:1.1.3": *
+#import "@preview/numbly:0.1.0": numbly
 #import "utils.typ": *
 
 // Separate deck explaining the course policy for generative artificial intelligence.
@@ -14,7 +18,10 @@
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
   footer: self => self.info.institution,
-  config-common(preamble: pdfpc-config),
+  config-common(
+    preamble: pdfpc-config,
+    show-bibliography-as-footnote: bibliography(title: none, "bibliography.bib"),
+  ),
   config-info(
     title: [Intelligent Systems 2],
     subtitle: [Using generative artificial intelligence responsibly],
@@ -64,7 +71,7 @@ This policy covers its use in:
 
 *Critical thinking*
 
-The _cognitive locus_ is the person (or software) who directs the work and makes the intellectual decisions.
+The _cognitive locus_ is the person (or software) who directs the work and makes the intellectual decisions#cite(label("shaw2026thinking")).
 
 You must retain control over:
 - the question, objectives and specifications;
@@ -219,109 +226,34 @@ Disclose the writing assistance and identify the affected sections.
 )
 
 
-== Improper use: unverified references
+== Improper use (Part I)
 
-#lead[A plausible citation is not verified evidence]
+*Unverified output*
 
 These practices are unacceptable:
-- Copying a generated bibliography without checking it.
-- Keeping a reference because its title sounds relevant.
-- Citing a real paper that does not support the claim.
-- Asking the model whether its own citation is correct and stopping there.
+- copying a generated bibliography without checking it;
+- copying code that you cannot explain or test;
+- accepting a conclusion without verifying the underlying evidence;
+- using a model to generate files that are generable in a deterministic way from your own data and/or code:
+    - data figures: data files and plotting code;
+    - results tables: data files and aggregation code;
+    - slides: editable source, such as Typst, LaTeX or HTML;
+    - diagrams: a source description, such as _PlantUML_ or _Mermaid_.
 
-#v(0.6em)
-*You are responsible for the existence, accuracy and relevance of every reference.*
+== Improper use (Part II)
 
-#speaker-note[1 minute. Verification after receiving a suggestion is required. The model is a discovery aid, while the source provides the evidence.]
+*Exemples*
+- Ask a model to draw the results chart as an image and submit it as the representation of your data.
+    - The image replaces the computation and plotting procedure.
+- Ask for finished slide images or a presentation file as a substitute for the code that generates the slides.
+    - Submit the output without reviewing its claims and sources.
 
-== Reproducible artefacts require executable sources
-
-#lead[Keep the source that generates the artefact]
-
-For deterministic outputs, provide the input material and generating source alongside the rendered result.
-
-Examples:
-- Data figures: data files and plotting code.
-- Results tables: data files and aggregation code.
-- Slides: editable source, such as Typst, LaTeX or HTML.
-- Diagrams: a source description, such as PlantUML or Mermaid.
-
-#v(0.5em)
-GenAI may help write the source. Inspect it and execute it to produce the artefact.
-
-#speaker-note[2 minutes. This is the coordinator's explicit reproducibility rule. The prohibited shortcut is asking for a finished artefact in place of a reproducible generating source. The rule concerns artefacts derivable from code, especially representations of data and technical content.]
-
-== Data figure: proper and improper use
-
-#lead[Generate figures from data and reviewed code]
-
-#grid(columns: (1fr, 1fr), gutter: 1.4cm,
-  [*Improper*
-
-    Ask a model to draw the results chart as an image and submit it as the representation of your data.
-
-    The image replaces the computation and plotting procedure.
-  ],
-  [*Proper*
-
-    Specify the input data, aggregation and visual encoding. Ask for a plotting script if useful.
-
-    Inspect the script, check its calculations and execute it on the saved data.
-  ],
-)
-
-#v(0.5em)
-The figure must trace back to the actual experiment results and generating code.
-
-#speaker-note[2 minutes. Even a visually plausible graph is unacceptable if its plotted values were invented or cannot be traced to the data. The same applies to error bars, sample counts and statistical annotations.]
-
-== Slides: proper and improper use
-
-#lead[Generate slides from reviewed, editable sources]
-
-#grid(columns: (1fr, 1fr), gutter: 1.4cm,
-  [*Improper*
-
-    Ask for finished slide images or a presentation file as a substitute for the code that generates the slides.
-
-    Submit the output without reviewing its claims and sources.
-  ],
-  [*Proper*
-
-    Prepare the outline and evidence. Ask for help drafting or editing the Typst, LaTeX or HTML source.
-
-    Review the content and sources, compile it, and inspect the rendered slides.
-  ],
-)
-
-#v(0.5em)
-Keep the generating source together with the material it depends on.
-
-#speaker-note[1 minute. A final PDF is a useful deliverable, but it does not replace the editable generating source. A complete rendering pipeline and reviewed content remain the student's responsibility.]
-
-== Statistical judgement stays with you
-
-#lead[Justify the analysis and interpret the evidence]
-
-GenAI may help implement a specified analysis or explain a statistical concept.
-
-You must justify:
-- The experimental unit, baseline and comparison.
-- The test or estimation procedure and its assumptions.
-- The treatment of variability and repeated observations.
-- The interpretation of effect sizes and statistical significance.
-
-#v(0.5em)
-Do not accept a test or conclusion merely because the tool suggests it. \
-Do not keep changing the analysis until it gives a desired result.
-
-#speaker-note[2 minutes. Connect this to the course outcomes. A generated p-value or verbal conclusion cannot replace a justified analysis of the actual experiment. Students should be able to explain the comparison in their report.]
 
 == A language model inside your project
 
-#lead[Document assistance and experimental methods]
+*Document assistance and experimental methods*
 
-Distinguish *GenAI assistance used to produce the work* from *a model used by the system you investigate*.
+Distinguish _GenAI assistance used to produce the work_ from _a model used by the system you investigate_.
 
 - Disclose development and writing assistance in the report.
 - Describe the system's model, inputs and configuration in the methods.
@@ -329,55 +261,5 @@ Distinguish *GenAI assistance used to produce the work* from *a model used by th
 - Check how model errors affect the whole system.
 
 #v(0.5em)
-Both uses require human oversight. A disclosure cannot replace an experimental method description.
-
-#speaker-note[1 minute. For a language-model-based agent, model integration is part of the research artefact. Documentation should support repeating the procedure, while recognising that service responses may change. No claim of identical stochastic outputs is required.]
-
-== Responsibility in a group project
-
-#lead[Make each contribution and its verification explicit]
-
-A group can submit one consolidated GenAI disclosure.
-
-It must identify:
-- Which tools each member used and for which tasks.
-- Which parts of the submission were affected.
-- Who checked the outputs and how.
-
-#v(0.7em)
-Each member must understand their own contribution and how it fits the overall design. \
-The joint submission must contain checked, defensible work.
-
-#speaker-note[1 minute. This elaborates the approved requirement to identify individual contributions. It does not introduce a new oral assessment or a new grading component.]
-
-== Before submitting
-
-#lead[Check understanding, evidence and disclosure]
-
-#enum(
-  [Can I explain the design, implementation and conclusions?],
-  [Have I tested generated code and checked factual claims?],
-  [Does every figure or table trace back to data and generating code?],
-  [Have I verified every reference against the original source?],
-  [Does the disclosure accurately identify the tools, purposes and checks?],
-)
-
-#v(0.6em)
-*Use assistance deliberately. Retain intellectual control and responsibility.*
-
-#speaker-note[1 minute. Ask students to apply these questions to one example from their project. This is a submission checklist, not an additional assessment task.]
-
-== Policy and recommended reading
-
-*Course coordinator's guidance for students* \
-#link("https://matteomagnini.github.io/students/")[matteomagnini.github.io/students/]
-
-#v(0.8em)
-The page requires a GenAI disclosure and recommends \
-*Thinking--Fast, Slow, and Artificial* before using language models.
-
-#v(0.8em)
-These slides specify the expected practice for Intelligent Systems 2. \
-Ask the teaching team about unclear cases before using the output in your submission.
-
-#speaker-note[1 minute. The students page was consulted on 6 November 2026. The detailed examples and requirements in this deck implement the course coordinator's instructions. This is not a claim that the website already contains every detailed course rule.]
+Both uses require human oversight.\
+A disclosure cannot replace an experimental method description.
