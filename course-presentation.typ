@@ -1,52 +1,24 @@
 #import "@preview/touying:0.6.3": *
 #import themes.metropolis: *
-#import "@preview/fontawesome:0.6.0": *
-#import "@preview/ctheorems:1.1.3": *
-#import "@preview/numbly:0.1.0": numbly
 #import "utils.typ": *
+#import "@preview/fontawesome:0.6.0": *
 
-// Pdfpc configuration
-// typst query --root . ./example.typ --field value --one "<pdfpc-file>" > ./example.pdfpc
+// Course introduction, approximately 30 minutes within the first 90-minute lecture.
+// Timetable, rooms and project deadlines will be announced on Moodle.
 #let pdfpc-config = pdfpc.config(
-    duration-minutes: 30,
-    start-time: datetime(hour: 14, minute: 10, second: 0),
-    end-time: datetime(hour: 14, minute: 40, second: 0),
-    last-minutes: 5,
-    note-font-size: 12,
-    disable-markdown: false,
-    default-transition: (
-      type: "push",
-      duration-seconds: 2,
-      angle: ltr,
-      alignment: "vertical",
-      direction: "inward",
-    ),
-  )
-
-// Theorems configuration by ctheorems
-#show: thmrules.with(qed-symbol: $square$)
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
-#let corollary = thmplain(
-  "corollary",
-  "Corollary",
-  base: "theorem",
-  titlefmt: strong
+  duration-minutes: 30,
+  last-minutes: 5,
+  note-font-size: 12,
+  disable-markdown: false,
 )
-#let definition = thmbox("definition", "Definition", inset: (x: 1.2em, top: 1em))
-#let example = thmplain("example", "Example").with(numbering: none)
-#let proof = thmproof("proof", "Proof")
 
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
   footer: self => self.info.institution,
-  config-common(
-    // handout: true,
-    preamble: pdfpc-config,
-    show-bibliography-as-footnote: bibliography(title: none, "bibliography.bib"),
-  ),
+  config-common(preamble: pdfpc-config),
   config-info(
-    title: [IS2],
-    subtitle: [Intelligent Systems 2],
+    title: [Intelligent Systems 2],
+    subtitle: [Course presentation],
     author: author_list(
       (
         (first_author("Matteo Magnini"), "matteo.magnini@uni.lu"),
@@ -55,41 +27,27 @@
       logo: "images/logo_unilu_fr.svg",
       width: 20%,
     ),
-    date: "16 September 2026",
+    date: [Summer semester 2026/2027],
     institution: [University of Luxembourg],
     logo: context {
-     if utils.slide-counter.get().first() > 1 [
-        #align(right)[#image("images/logo_unilu_short.svg", height: 1cm)]
-      ] else [
-        #none
-      ]
+      if utils.slide-counter.get().first() > 1 {
+        align(right, image("images/logo_unilu_short.svg", height: 1cm))
+      }
     },
   ),
 )
 
-
 #set text(font: "Fira Sans", weight: "light", size: 20pt)
-#show math.equation: set text(font: "Fira Math")
+#set par(leading: 0.65em)
+#show footnote.entry: set text(size: 0.7em)
 
-#set raw(tab-size: 4)
-#show raw: set text(size: 1em)
-#show raw.where(block: true): block.with(
-  fill: luma(240),
-  inset: (x: 1em, y: 1em),
-  radius: 0.7em,
-  width: 100%,
+#let lead(body) = block(
+  above: 0pt,
+  below: 0.5em,
+  text(fill: rgb("eb811b"), weight: "bold", body),
 )
 
-#show bibliography: set text(size: 0.75em)
-#show footnote.entry: set text(size: 0.75em)
-
-// #set heading(numbering: numbly("{1}.", default: "1.1"))
-
 #title-slide()
-
-// == Outline <touying:hidden>
-
-// #components.adaptive-columns(outline(title: none, indent: 1em))
 
 = About the course
 
@@ -151,75 +109,130 @@
 
 == Time schedule
 
+*Theory and practice throughout the semester*
+
+- *Theory lectures:* 14 sessions of 90 minutes with Matteo Magnini.
+- *Practical lectures:* 14 sessions of 90 minutes with Souvick Das.
+- *Weekly organisation:* normally one lecture and one practical session. The opening sessions may place greater emphasis on foundations.
+- *Timetable and rooms:* to be announced on Moodle.
+
+#v(0.5em)
+21 contact hours per teacher, 42 overall. The course carries 4 credits under the European Credit Transfer and Accumulation System (ECTS).
 
 == Course structure
 
-#grid(
-  columns: 2,
-  gutter: 2cm,
-
+#grid(columns: (1fr, 1fr), gutter: 1.4cm,
   [
-    *Part I – Main Lectures \
-     (50% of the lectures)*
+    *Theory: 14 lectures*
 
-    - Natural and Artificial Intelligence
-    - Computation in Time and Space
-    - Agents
-      - Autonomy
-      - Reasoning
-      - Embodiment
-      - Navigation and Planning
-    - Software Control Architectures
-    - Multi‑Agent Systems
-    - LLM as a Service
-    - Information Theory & CSS
+    - *Foundations:* intelligence, agency, autonomy, representation, reasoning and planning.
+
+    - *Embodied agents:* embodiment, control architectures, classical tasks and MAS.
+
+    - *Advanced:* generative AI as a tool, complex systems science, neuro-symbolic systems and explainability.
   ],
-
   [
-    *Part II – Practical Lectures \
-     (50% of the lectures)*
+    *Practice: 14 tutorials*
 
-    - Simulation
-    - Reproducibility
-    - Exercises with ARGoS Simulator
-      - Subsumption Architecture
-      - Reinforcement Learning
-      - for:
-        - obstacle avoidance
-        - phototaxis
-        - path following
-    - LLM empowered agents
-      - LLM as a tool
-      - LLM as a
+    - *Foundations:* reproducibility, experimental design and statistical comparisons.
+
+    - *Simulation:* individual and collective robot behaviours, controller comparisons and robustness.
+
+    - *Advanced:* language models as tools, symbolic checks and experimental evaluation.
   ],
 )
 
 == Where to find the material
 
-- *Moodle (official channel)* \
-  Use the university Moodle to access all course resources: \
-  //#link("https://moodle.uni.lu/course/view.php?id=81")[
-  //  moodle.uni.lu/course/view.php?id=81
-  //]
+- *Moodle: official channel* \
+  Timetable, rooms, announcements, exercise instructions and assessment submissions. The course link will be announced.
 
 - *GitHub page* \
-  Overview of the course and additional material (this slide only): \
-  #link("https://icr-unilu.github.io/course-2027-spring-is2")[
-    icr-unilu.github.io/course-2027-spring-is2
-  ]
+  Course overview and presentation: \
+  #link("https://icr-unilu.github.io/course-2027-spring-is2")[icr-unilu.github.io/course-2027-spring-is2]
 
-- *GitHub releases (PDF slides)* \
-  The PDF versions of the slides are available in the latest release: \
-  #link("https://github.com/icr-unilu/course-2027-spring-is2/releases/latest")[
-    github.com/icr-unilu/course-2027-spring-is2/releases/latest
-  ]
+- *GitHub releases: PDF slides* \
+  Published slide decks are available in the latest release: \
+  #link("https://github.com/icr-unilu/course-2027-spring-is2/releases/latest")[github.com/icr-unilu/course-2027-spring-is2/releases/latest]
 
 == Assessment
 
+#grid(columns: (1fr, 1fr), gutter: 1.4cm,
+  [
+    *50%: written examination*
+
+    Individual, *closed book*. \
+    Only a _calculator_ is permitted.
+
+    Questions cover both theory and practice aspects.
+    The exam is designed to be completed in _90 minutes_.
+
+    We assess correctness, completeness and clear reasoning.
+  ],
+  [
+    *50%: project and written report*
+
+    Individual or groups of *at most three*.
+
+    Submit source code, reproduction instructions, results and a report identifying _each member's contribution_.
+
+    We assess design, implementation, methodology, reproducibility and critical analysis.
+  ],
+)
+
+== Repeating students
+
+#grid(columns: (1fr, 1fr), gutter: 1.4cm,
+  [
+    *2026/2027: the reformed course*
+
+    Students from the previous version of the course must *re-enrol and repeat the full course*:
+
+    - New project and report: *50%*.
+
+    - New written examination: *50%*.
+
+    - Previous marks do not carry over.
+  ],
+  [
+    *For 20027/2028 and future years*
+
+    A project from the previous academic year can carry forward:
+    - Sufficient project: at least 10/20, repeat only the written examination.
+    - Insufficient project: repeat both assessments.
+
+    *50% retained project + 50% new exam.*
+  ],
+)
+
+== Use of generative artificial intelligence
+
+*Transparent assistance with human intellectual responsibility*
+
+- Include a *mandatory disclosure*: tools, purposes, and affected material.
+- Retain control over specifications, design choices, verification and conclusions.
+  - _No autopilot nor cognitive surrender!_
+- Generate code-derived artefacts from _reproducible sources_.
+- _Verify references_ against the original publications.
+
+#v(0.5em)
+The separate *GenAI use policy* deck provides detailed rules, examples and a disclosure template.
+Here you can find more about the it #link("https://icr-unilu.github.io/course-2027-spring-is2/releases/latest/download/genai-use-policy.pdf")[genai-use-policy.pdf].
 
 == Table of contents
 
-Lecture slides and materials are available in the “Latest release” of the course repository:
-#link("https://github.com/icr-unilu/course-2027-spring-is2/releases/latest")[
-  github.com/icr-unilu/ccourse-2027-spring-is2/releases/latest
-]
+#grid(columns: (1fr, 1fr), gutter: 1.4cm,
+  [
+    *Lecture material*
+
+    -TBA
+  ],
+  [
+    *Other material*
+
+    - TBA
+  ],
+)
+
+#v(0.5em)
+Slide PDFs will appear in the repository releases as the course progresses.
