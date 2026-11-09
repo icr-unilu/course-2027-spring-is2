@@ -33,7 +33,7 @@
       logo: "images/logo_unilu_fr.svg",
       width: 20%,
     ),
-    date: [Summer semester 2026/2027],
+    date: datetime(year: 2027, month: 2, day: 1).display("[day] [month repr:long] [year]"),
     institution: [University of Luxembourg],
     logo: context {
       if utils.slide-counter.get().first() > 1 {
