@@ -119,28 +119,77 @@
 #v(0.5em)
 21 contact hours per teacher, 42 overall. The course carries 4 credits under the European Credit Transfer and Accumulation System (ECTS).
 
-== Course structure
+== Course overview
 
-#grid(columns: (1fr, 1fr), gutter: 1.4cm,
-  [
-    *Theory: 14 lectures*
 
-    - *Foundations:* intelligence, agency, autonomy, representation, reasoning and planning.
+#{
+  set text(size: 16pt)
 
-    - *Embodied agents:* embodiment, control architectures, classical tasks and MAS.
+  table(
+    columns: (1fr, 1fr),
+    inset: (x: 10pt, y: 9pt),
+    stroke: 0.5pt + rgb("d8dfe1"),
+    align: left + top,
+    fill: (x, y) => if y == 0 {
+      rgb("e5ecee")
+    } else {
+      none
+    },
 
-    - *Advanced:* generative AI as a tool, complex systems science, neuro-symbolic systems and explainability.
-  ],
-  [
-    *Practice: 14 tutorials*
+    table.header(
+      [*Theory*],
+      [*Practice*],
+    ),
 
-    - *Foundations:* reproducibility, experimental design and statistical comparisons.
+    [
+      _Foundations_
 
-    - *Simulation:* individual and collective robot behaviours, controller comparisons and robustness.
+      Intelligence, agency and autonomy.
+      Knowledge representation, reasoning,
+      navigation and planning.
+    ],
+    [
+      _Foundations_
 
-    - *Advanced:* language models as tools, symbolic checks and experimental evaluation.
-  ],
-)
+      Random and pseudorandom numbers, seeds
+      and reproducibility. Continuous integration
+      and delivery (CI/CD). Experimental design
+      and statistical tests.
+    ],
+
+    [
+      _Embodied intelligent systems_
+
+      Embodiment, sensing and actuation.
+      Software control architectures.
+      Multi-agent systems and swarm robotics.
+    ],
+    [
+      _Simulation_
+
+      Robot controllers in ARGoS 3.
+      Obstacle avoidance, phototaxis and
+      path following. Individual and collective
+      behaviour under different conditions.
+    ],
+
+    [
+      _Advanced topics_
+
+      Generative artificial intelligence,
+      complex systems science, neuro-symbolic
+      systems and explainability.
+    ],
+    [
+      _Advanced topics_
+
+      Large language models as tools.
+      Integration with symbolic reasoning,
+      output validation and execution traces.
+      Experimental evaluation of intelligent systems.
+    ],
+  )
+}
 
 == Where to find the material
 
@@ -217,7 +266,9 @@
 
 #v(0.5em)
 The separate *GenAI use policy* deck provides detailed rules, examples and a disclosure template.
-Here you can find more about the it #link("https://icr-unilu.github.io/course-2027-spring-is2/releases/latest/download/genai-use-policy.pdf")[genai-use-policy.pdf].
+Here you can find more about it:\
+- #fa-icon("file-pdf") #link("https://icr-unilu.github.io/course-2027-spring-is2/releases/latest/download/genai-use-policy.pdf")[genai-use-policy.pdf].
+
 
 == Table of contents
 
