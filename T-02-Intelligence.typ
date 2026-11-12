@@ -434,6 +434,113 @@ A successful test demonstrates performance under its conditions; it does not ide
 Fluent language, effective action and extensive autonomy do not by themselves settle the question of consciousness.
 
 
+= Civilisations and Intelligence
+
+== The Kardashev Scale (Part I)
+
+#text(fill: rgb("#eb811b"), weight: "bold")[From individual minds to collective capabilities]
+
+How could we compare entire civilisations, rather than individual agents?
+
+Kardashev proposed a classification by the *power a civilisation can harness*#cite(label("kardashev1964transmission")).
+
+#table(
+  columns: (auto, 1fr, auto),
+  inset: 8pt,
+  stroke: none,
+  table.header([*Type*], [*Scale*], [*Approximate power*]),
+  [I], [Planetary], [$10^16$ W],
+  [II], [Stellar], [$10^26$ W],
+  [III], [Galactic], [$10^36$ W],
+)
+
+#text(size: 0.8em)[Modern normalised convention#cite(label("gray2020extended")); the original Type I was near 1960s Earth. This measures technological capacity, not cognitive ability directly.]
+
+== The Kardashev Scale (Part II)
+
+#text(fill: rgb("#eb811b"), weight: "bold")[Type I — planetary capabilities]
+
+#grid(
+  columns: (0.9fr, 1.2fr),
+  gutter: 0.8cm,
+  [
+    Harnessing power on the scale available to a planet.
+
+    *Earthbound engineering — Metropolis (1927)*
+
+    Giant machines, dense urban infrastructure and multi-level transport.
+
+    #text(size: 0.85em)[A visual analogy for terrestrial technological capacity; the film does not establish a Type I power budget.]
+  ],
+  [
+    #image("images/T-02/metropolis-city.jpg", width: 100%, height: 8cm, fit: "contain")
+    #align(center)[#text(size: 0.6em)[#link("https://commons.wikimedia.org/wiki/File:Set_photograph_from_“Metropolis”_(1927).jpg")[Metropolis — futuristic city]
+
+Horst von Harbou · Wikimedia Commons · Public domain.]]
+  ],
+)
+
+== The Kardashev Scale (Part III)
+
+#text(fill: rgb("#eb811b"), weight: "bold")[Type II — stellar capabilities]
+
+#grid(
+  columns: (0.9fr, 1.2fr),
+  gutter: 0.8cm,
+  [
+    Harnessing power comparable to the output of a star.
+
+    *The Dyson sphere — Star Trek: TNG, “Relics” (1992)*
+
+    The episode imagines a shell surrounding a star.
+
+    #text(size: 0.85em)[A Dyson swarm of orbiting collectors illustrates the energy-harvesting idea without requiring a solid shell#cite(label("dyson1960infrared")).]
+  ],
+  [
+    #image("images/T-02/dyson-swarm.jpg", width: 100%, height: 8cm, fit: "contain")
+    #align(center)[#text(size: 0.6em)[#link("https://commons.wikimedia.org/wiki/File:Dyson_Swarm_realistic_representation_cropped.jpg")[Dyson swarm — concept illustration]
+
+Archibald Tuttle · Wikimedia Commons · #link("https://creativecommons.org/licenses/by-sa/4.0/")[CC BY-SA 4.0].]]
+  ],
+)
+
+== The Kardashev Scale (Part IV)
+
+#text(fill: rgb("#eb811b"), weight: "bold")[Type III — galactic capabilities]
+
+#grid(
+  columns: (0.9fr, 1.2fr),
+  gutter: 0.8cm,
+  [
+    Harnessing power comparable to the combined output of a galaxy's stars.
+
+    *The Galactic Empire — Star Wars*
+
+    Imperial Star Destroyers make its capacity for interstellar engineering and transport visible.
+
+    #text(size: 0.85em)[Galactic reach is not enough: its depiction does not establish a Type III energy budget.]
+  ],
+  [
+    #image("images/T-02/imperial-star-destroyer.png", width: 100%, height: 8cm, fit: "contain")
+    #align(center)[#text(size: 0.6em)[#link("https://en.wikipedia.org/wiki/File:ImperialstarDestroyer480ppx.png")[Imperial Star Destroyers — The Empire Strikes Back]
+
+© Lucasfilm / 20th Century Fox · Wikipedia.]]
+  ],
+)
+
+== The Kardashev Scale (Part V)
+
+#text(fill: rgb("#eb811b"), weight: "bold")[More power: more intelligence?]
+
+The scale captures *one observable dimension* of a civilisation's capabilities.
+
+It does not directly measure:
+- learning, reasoning or creativity;
+- how efficiently resources are used;
+- cooperation, well-being or wise decisions.
+
+A civilisation could improve by using energy *better*, without using *more*#cite(label("ivanov2020classification")).
+
 = Human Intelligence and Stupidity
 
 == The Basic Laws of Human Stupidity (Part I)
@@ -483,7 +590,7 @@ Imagine a navigation system that saves its users time by diverting traffic throu
 A system can optimise its local objective while producing undesirable collective consequences.
 
 
-= Digression: Fast, Slow and Artificial Thinking
+= Thinking Fast, Slow (and Artificial Thinking)
 
 == Thinking, Fast, Slow and Artificial (Part I)
 
