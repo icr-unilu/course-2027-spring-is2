@@ -1,6 +1,7 @@
 #import "@preview/touying:0.7.4": *
 #import themes.metropolis: *
 #import "utils.typ": *
+#import "diagrams.typ": *
 
 // This deck introduces systems. Intelligence belongs in the separate T-02 deck.
 #let pdfpc-config = pdfpc.config(duration-minutes: 60, last-minutes: 5)
@@ -31,16 +32,6 @@
 #set text(font: "Fira Sans", weight: "light", size: 20pt)
 #set par(leading: 0.65em)
 #show footnote.entry: set text(size: 0.65em)
-
-// Native, editable SVG diagrams. No external image files are needed.
-#let diagram(body, height: 4.5cm) = align(center, image(bytes(
-  "<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='340' viewBox='0 0 1000 340'>"
-  + "<defs><marker id='arrow' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto-start-reverse'><path d='M0,0 L8,4 L0,8 Z' fill='#23373b'/></marker></defs>"
-  + "<style>text{font-family: Fira Sans, sans-serif;fill:#23373b;font-size:32px} .label{font-size:28px} .small{font-size:24px} .node{fill:#edf3f4;stroke:#23373b;stroke-width:2} .edge{stroke:#23373b;stroke-width:3;fill:none;marker-end:url(#arrow)} .accent{fill:#eb811b} .boundary{fill:#f8fafb;stroke:#eb811b;stroke-width:3;stroke-dasharray:10 6}</style>"
-  + body + "</svg>"
-), format: "svg", height: height))
-
-#let robot(x, y, caption) = "<g transform='translate(" + str(x) + "," + str(y) + ")'><rect x='0' y='0' width='105' height='88' rx='16' class='node'/><circle cx='33' cy='31' r='6'/><circle cx='72' cy='31' r='6'/><path d='M32 60 H73' stroke='#23373b' stroke-width='4'/><text x='52' y='120' text-anchor='middle' class='label'>" + caption + "</text></g>"
 
 #title-slide()
 
@@ -235,7 +226,7 @@ We consider two perspectives:
 - Specify well-defined transformation rules.
 - Apply those rules to obtain a result#cite(label("conery2010symbols")).
 
-#diagram("<rect x='25' y='105' width='210' height='105' rx='10' class='node'/><text x='130' y='166' text-anchor='middle'>Input data</text><path d='M235 157 H375' class='edge'/><rect x='375' y='85' width='250' height='145' rx='14' class='node'/><text x='500' y='166' text-anchor='middle'>Computation</text><path d='M625 157 H765' class='edge'/><rect x='765' y='105' width='210' height='105' rx='10' class='node'/><text x='870' y='166' text-anchor='middle'>Output data</text>", height: 3.8cm)
+#input-output()
 
 Sorting a list is one example: the representation and the permitted operations matter.
 
@@ -311,7 +302,7 @@ We model an elementary computational process as a *sequence of computational ste
 
 Several such processes can interact or execute concurrently.
 
-#diagram("<rect x='25' y='105' width='210' height='105' rx='10' class='node'/><text x='130' y='166' text-anchor='middle'>Input</text><path d='M235 157 H375' class='edge'/><rect x='375' y='85' width='250' height='145' rx='14' class='node'/><text x='500' y='166' text-anchor='middle'>Process</text><path d='M625 157 H765' class='edge'/><rect x='765' y='105' width='210' height='105' rx='10' class='node'/><text x='870' y='166' text-anchor='middle'>Output</text>", height: 3.8cm)
+#input-output(process: "Process", input: "Input", output: "Output")
 
 We distinguish the *process*, the *machine* on which it runs, and its *context*.
 
@@ -479,7 +470,7 @@ Autonomy concerns control; it does not imply independence from the environment.
 
 *The agent and the environment form an interaction loop*
 
-#diagram("<rect x='60' y='80' width='300' height='170' rx='18' class='node'/><text x='210' y='173' text-anchor='middle'>Agent</text><rect x='640' y='80' width='300' height='170' rx='18' class='node'/><text x='790' y='173' text-anchor='middle'>Environment</text><path d='M365 115 H635' class='edge'/><text x='500' y='90' text-anchor='middle' class='label'>actions</text><path d='M635 220 H365' class='edge'/><text x='500' y='263' text-anchor='middle' class='label'>observations</text>", height: 4.3cm)
+#agent-environment(height: 4.3cm)
 
 Actions affect the environment. Perception provides information about it#cite(label("wooldridge1995agents")).
 
@@ -509,7 +500,7 @@ An agent may need memory, further sensing or interaction to distinguish them.
 
 *The environment is part of the larger system under study*
 
-#diagram("<rect x='25' y='20' width='950' height='290' rx='18' class='boundary'/><text x='55' y='58' class='accent'>System under study</text><rect x='90' y='105' width='270' height='130' rx='16' class='node'/><text x='225' y='180' text-anchor='middle'>Agent or agents</text><rect x='640' y='105' width='270' height='130' rx='16' class='node'/><text x='775' y='180' text-anchor='middle'>Environment</text><path d='M365 140 H635' class='edge'/><path d='M635 205 H365' class='edge'/><text x='500' y='98' text-anchor='middle' class='label'>interaction</text>", height: 4.1cm)
+#agent-environment(height: 4.1cm, system-boundary: true, agent-label: "Agent or agents")
 
 *Agents + environment + interactions*, within a chosen boundary.
 

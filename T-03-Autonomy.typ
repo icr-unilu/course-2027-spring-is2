@@ -1,6 +1,7 @@
 #import "@preview/touying:0.7.4": *
 #import themes.metropolis: *
 #import "utils.typ": *
+#import "diagrams.typ": agent-environment
 
 #let pdfpc-config = pdfpc.config(duration-minutes: 90, last-minutes: 5)
 #show: metropolis-theme.with(
@@ -32,18 +33,10 @@
 #show footnote.entry: set text(size: 0.65em)
 
 
-// Diagrams are editable SVGs. Provenance and rebuild commands: T-03-SOURCES.md.
-#let lead(body) = text(fill: rgb("#eb811b"), weight: "bold", body)
-#let caption(body) = align(center, text(size: 0.6em, fill: rgb("#53666a"), body))
+// Reusable interaction diagrams are defined in diagrams.typ.
+#import "slide-components.typ": lead, caption, pair, card, code
 #let pic(name, height: 8cm, width: 100%) = align(center,
   image("images/T-03/" + name, height: height, width: width, fit: "contain"))
-#let pair(left, right) = grid(columns: (1fr, 1fr), gutter: 1cm, align: top, left, right)
-#let card(title, body) = block(width: 100%, inset: 12pt, radius: 6pt,
-  fill: rgb("#edf3f4"))[
-  #lead(title)
-  #v(0.3em)
-  #body
-]
 
 #title-slide()
 
@@ -179,17 +172,30 @@ Evolution is not a ladder on which every lineage must climb#cite(label("rosslenb
 
 #lead[Resources for autonomy: boundaries, regulation, internalisation]
 
-#pic("biological-resources-a.svg", height: 8cm, width: 83%)
+#grid(columns: (1fr, 1fr, 1fr), gutter: 0.7cm, align: top,
+  card([Boundaries], [Membranes, skin and shells regulate exchanges with the surroundings.]),
+  card([Regulation], [Feedback mechanisms maintain viable internal conditions.]),
+  card([Internalisation], [Functions and structures become less directly exposed to external variation.]),
+)
 
-#caption[Detail from Rosslenbroich's resources for autonomy, Fig. 3.3#cite(label("rosslenbroich2014autonomy")).]
+#v(0.6em)
+Different resources can buffer different kinds of environmental change.
+
+#caption[Adapted from Rosslenbroich's resources for autonomy, Fig. 3.3#cite(label("rosslenbroich2014autonomy")).]
 
 == Autonomy and Evolution (Part III)
 
 #lead[Resources for autonomy: size and flexibility]
 
-#pic("biological-resources-b.svg", height: 8cm, width: 66%)
+#pair(
+  card([Size], [A lower surface-to-volume ratio can buffer exchanges with the surroundings.]),
+  card([Flexibility], [Physiological adjustment, movement and behaviour provide alternative responses to change.]),
+)
 
-#caption[Another detail from Fig. 3.3: alternative resources, not requirements for every organism.]
+#v(0.6em)
+These are alternative resources, not requirements that every organism must satisfy.
+
+#caption[Adapted from Rosslenbroich's Fig. 3.3#cite(label("rosslenbroich2014autonomy")).]
 
 == Autonomy and Evolution (Part IV)
 
@@ -438,9 +444,9 @@ Autonomy belongs to the configured system, not to the label “LLM”#cite(label
 
 #lead[An interaction loop gives the model a role in action]
 
-#pic("agentic-loop.svg", height: 8cm)
+#agent-environment(height: 7cm, agent-detail: true)
 
-#caption[The goal, constraints and stopping criteria remain part of the system's design.]
+#caption[The same perception–action loop: the model proposes actions; the controller applies constraints and stopping criteria.]
 
 == LLM-Based Agents (Part III)
 

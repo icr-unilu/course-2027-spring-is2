@@ -1,26 +1,18 @@
 #!/usr/bin/env python3
 """Build editable SVG diagrams for T-03. Python standard library only.
-Use --m2 PDF --odell PDF to rebuild the reused vector crops (requires PyMuPDF).
+Use --odell PDF to rebuild the reused comparison figure (requires PyMuPDF).
+Agent/environment diagrams are shared in diagrams.typ; evolution slides use native cards.
 """
 from pathlib import Path
 import argparse
-from html import escape
+from diagram_support import INK, ACCENT as ORANGE, text, box, arrow, save_svg
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'images' / 'T-03'
-OUT.mkdir(parents=True, exist_ok=True)
-INK = '#23373b'
-ORANGE = '#eb811b'
-def text(x, y, content, size=28, anchor='middle', fill=INK):
-    return f'<text x="{x}" y="{y}" font-size="{size}" text-anchor="{anchor}" fill="{fill}">{escape(content)}</text>'
-def box(x, y, w, h, title, fill='#edf3f4'):
-    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="15" fill="{fill}" stroke="{INK}" stroke-width="2"/>' + text(x+w/2,y+h/2+10,title)
-def arrow(path, color=INK):
-    return f'<path d="{path}" fill="none" stroke="{color}" stroke-width="3" marker-end="url(#arrow)"/>'
+
+
 def save(name, content, height=380):
-    s=f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 {height}">
-<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="{INK}"/></marker></defs>
-<g font-family="Fira Sans, sans-serif">{content}</g></svg>'''
-    (OUT/name).write_text(s)
+    save_svg(OUT / name, content, height)
+
 
 s = '<ellipse cx="500" cy="205" rx="280" ry="170" fill="#f8fafb" stroke="#eb811b" stroke-width="7"/>'
 s += text(500,80,'Boundary / membrane',30)
@@ -45,13 +37,6 @@ s+=arrow('M500 180 L500 195')+arrow('M680 230 L865 230')+text(865,275,'Action',2
 s+=arrow('M90 145 L320 145')+text(140,120,'Information',24)
 s+=text(500,315,'Control remains inside',27)
 save('agent-boundary.svg',s,390)
-
-s=box(20,110,260,90,'Observe')+box(370,110,260,90,'Decide')+box(720,110,260,90,'Act')
-s+=arrow('M285 155 L360 155')+arrow('M635 155 L710 155')
-s+=arrow('M850 205 L850 290 L150 290 L150 205')
-s+=text(500,330,'Observe the outcome and continue, revise, or stop',26)
-s+=text(150,75,'Context + feedback',24)+text(500,75,'Goal + current state',24)+text(850,75,'Tools + permissions',24)
-save('agentic-loop.svg',s,365)
 
 s=box(25,45,270,80,'Find evidence')+box(365,45,270,80,'Check evidence')+box(705,45,270,80,'Synthesize')
 s+=arrow('M300 85 L355 85')+arrow('M640 85 L695 85')
@@ -92,10 +77,6 @@ def vector_crop(pdf, page, rect, name):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--m2',type=Path)
     parser.add_argument('--odell',type=Path)
     args=parser.parse_args()
-    if args.m2:
-        vector_crop(args.m2,20,(10,121,215,224),'biological-resources-a.svg')
-        vector_crop(args.m2,20,(221,121,352,224),'biological-resources-b.svg')
     if args.odell:vector_crop(args.odell,0,(92,511,501,688),'programming-paradigms.svg')
