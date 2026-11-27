@@ -40,3 +40,41 @@
     height: height,
   )
 }
+
+#let svg-arrow(path) = "<path d='" + path + "' class='edge'/>"
+
+#let braitenberg-vehicles(reveal-turn: false, height: 8.4cm) = {
+  let vehicle(offset, crossed, excitatory, name) = {
+    let sign = if excitatory { "+" } else { "−" }
+    let caption = if excitatory { "Excitatory" } else { "Inhibitory" }
+    let left-wheel = if crossed { "155" } else { "76" }
+    let right-wheel = if crossed { "76" } else { "155" }
+    let toward = crossed == excitatory
+    let trajectory = if reveal-turn {
+      if toward { svg-arrow("M115 148 C115 126 90 107 66 108") }
+      else { svg-arrow("M115 148 C115 125 137 101 178 101") }
+    } else { "" }
+    (
+      "<g transform='translate(" + str(offset) + ",0)'>" +
+      "<rect x='0' y='10' width='232' height='316' rx='12' fill='#edf3f4'/>" +
+      svg-text(116, 46, if reveal-turn { name } else { name.split(" · ").first() }, style: "label") +
+      "<g stroke='#eb811b' stroke-width='3' stroke-linecap='round'>" +
+      "<circle cx='45' cy='102' r='12' fill='#ffc681'/><path d='M45 81 V75 M45 123 V129 M24 102 H18 M66 102 H72 M30 87 L25 82 M60 87 L65 82 M30 117 L25 122 M60 117 L65 122'/></g>" +
+      trajectory +
+      svg-rect(66, 169, 99, 101) +
+      "<path d='M76 185 L" + left-wheel + " 252 M155 185 L" + right-wheel + " 252' stroke='#23373b' stroke-width='3.5' fill='none'/>" +
+      "<circle cx='76' cy='170' r='8' class='accent'/><circle cx='155' cy='170' r='8' class='accent'/>" +
+      "<rect x='63' y='249' width='25' height='28' rx='4' fill='#23373b'/><rect x='143' y='249' width='25' height='28' rx='4' fill='#23373b'/>" +
+      svg-text(47, 219, sign, style: "small") + svg-text(183, 219, sign, style: "small") +
+      svg-text(116, 310, caption, style: "small") +
+      "</g>"
+    )
+  }
+  diagram(
+    vehicle(9, false, true, "2a · Fear") +
+    vehicle(258, true, true, "2b · Aggression") +
+    vehicle(507, false, false, "3a · Love") +
+    vehicle(756, true, false, "3b · Exploration"),
+    height: height,
+  )
+}

@@ -3,7 +3,7 @@
 #import "themes/embodied.typ": embodied-theme
 #import "slide-components.typ": lead, caption, pair, card
 #import "diagrams.typ": agent-environment
-#import "themes/robotics-diagrams.typ": belval-map
+#import "themes/robotics-diagrams.typ": belval-map, braitenberg-vehicles
 
 #let hangzhou-credit = [
   Photos: Matteo Magnini, #link("https://github.com/icr-unilu/course-2026-winter-stai/blob/98d81d687bee2248af50d4034c07b7ba51055913/01-artificial-intelligence-101.typ")[STAI · Artificial Intelligence 101]. Cropped for these slides.
@@ -46,7 +46,8 @@
 
 #speaker-note[
   90 minutes. Allow 25 min for embodiment and situatedness, 8 min for the historical
-  digression and the remaining time for the delivery case, exercise and discussion. The Belval map is fictional and schematic.
+  digression, 15 min for Braitenberg vehicles and 42 min for the delivery case,
+  exercise and discussion. The Belval map is fictional and schematic.
 ]
 
 = Bodies in Environments
@@ -177,6 +178,52 @@ A controller calibrated for a dry floor may need other settings on a slippery su
   Keep this digression to eight minutes. Ask where the next turn comes from in
   each example. Walter's robots are the bridge to Braitenberg. Shakey's
   planning work at the Stanford Research Institute sets up the next lecture.
+]
+
+= Braitenberg Vehicles
+
+== Predict the First Turn
+
+#braitenberg-vehicles()
+
+#caption[The same light is ahead and to the left. An excitatory link speeds up a wheel. An inhibitory link slows it down.]
+
+#speaker-note[
+  Adapted from the four vehicle examples in STAI AI-101 and Andrea Roli's
+  Braitenberg Vehicles slides. Assume the same positive baseline speed for
+  both wheels and keep the vehicle's starting pose fixed. Have students
+  predict the initial turn before showing the next slide.
+]
+
+== Four Circuits, Four Behaviours
+
+#braitenberg-vehicles(reveal-turn: true)
+
+#caption[The arrows show initial turns. The wiring also changes how speed varies with the light intensity#cite(label("braitenberg1984vehicles")).]
+
+#speaker-note[
+  The brighter left sensor makes the connected wheel faster in Vehicle 2
+  and slower in Vehicle 3. A differential-drive vehicle turns towards the
+  slower wheel. The classic names describe the visible behaviour. The
+  drawing gives the first turn from this pose. Have students move the light
+  in the next slide to see how changing readings redirect the vehicle.
+]
+
+== Try It: Braitenberg Playground
+
+#lead[Change the wiring while keeping the light and starting pose fixed]
+
+1. In #link("https://www.braitenberg.world/")[*Braitenberg World*], compare same-side and crossed excitatory links.
+2. Check the first turn, then watch the trajectories diverge.
+3. Move the light or add a second source and predict what will change.
+
+#v(0.5em)
+The #link("https://www.webandcircuits.com/lab/vehicles/")[*Vehicle Builder Sandbox*] also lets you compare all four presets shown here.
+
+#speaker-note[
+  Budget four to five minutes within the Braitenberg digression. The core
+  comparison is 2a versus 2b. If time permits, change the sign of the links
+  while retaining a positive base speed to connect to vehicles 3a and 3b.
 ]
 
 = Designing for the Physical Task
