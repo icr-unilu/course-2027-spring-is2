@@ -78,3 +78,27 @@
     height: height,
   )
 }
+
+#let door-action(height: 6.95cm) = {
+  let door-panel(x, label, detail, open: false) = (
+    "<g transform='translate(" + str(x) + ",0)'>" +
+    "<rect x='0' y='22' width='320' height='292' rx='13' fill='#edf3f4'/>" +
+    svg-text(160, 65, label) +
+    "<path d='M45 159 H125 M195 159 H275' stroke='#53666a' stroke-width='12' stroke-linecap='round'/>" +
+    "<circle cx='125' cy='159' r='6' fill='#23373b'/>" +
+    (if open {
+      "<path d='M125 159 V98' stroke='#008273' stroke-width='9' stroke-linecap='round'/>"
+    } else {
+      "<path d='M125 159 H195' stroke='#c26411' stroke-width='9' stroke-linecap='round'/>"
+    }) +
+    svg-text(160, 246, detail) +
+    svg-text(160, 285, "At(B), Carrying", style: "small") +
+    "</g>"
+  )
+  diagram(
+    door-panel(38, "Before", "ClosedBC") +
+    svg-arrow("M388 159 H613") + svg-text(500, 132, "OpenDoor", style: "small") +
+    door-panel(642, "After", "PassableBC", open: true),
+    height: height,
+  )
+}
