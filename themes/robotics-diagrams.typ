@@ -236,3 +236,27 @@
     height: height,
   )
 }
+#let double-bridge(height: 6.5cm) = diagram(
+  "<path d='M205 173 H275 L360 103 H640 L725 173 H795' fill='none' stroke='#53666a' stroke-width='5'/>" +
+  "<path d='M205 173 H275 L340 259 H660 L725 173 H795' fill='none' stroke='#53666a' stroke-width='5'/>" +
+  svg-rect(62, 132, 143, 82) + svg-text(133, 182, "Nest") +
+  svg-rect(795, 132, 143, 82) + svg-text(867, 182, "Food") +
+  svg-text(500, 78, "Short branch") +
+  svg-text(500, 298, "Long branch"),
+  height: height,
+)
+#let retrieval-controller(height: 6.7cm) = {
+  let state(x, y, label) = svg-rect(x, y, 150, 58) + svg-text(x + 75, y + 38, label)
+  diagram(
+    state(40, 115, "Rest") + state(290, 115, "Search") +
+    state(565, 115, "Retrieve") + state(825, 115, "Deposit") +
+    state(565, 230, "Return") +
+    svg-arrow("M190 144 H288") + svg-text(239, 104, "depart", style: "small") +
+    svg-arrow("M440 144 H563") + svg-text(501, 104, "object found", style: "small") +
+    svg-arrow("M715 144 H823") + svg-text(769, 104, "nest reached", style: "small") +
+    svg-arrow("M900 114 V49 H115 V113") + svg-text(502, 37, "object deposited", style: "small") +
+    svg-arrow("M365 174 V259 H563") + svg-text(464, 244, "timeout", style: "small") +
+    svg-arrow("M640 288 V316 H115 V175") + svg-text(359, 304, "nest reached", style: "small"),
+    height: height,
+  )
+}
