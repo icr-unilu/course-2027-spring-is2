@@ -148,14 +148,30 @@ A controller calibrated for a dry floor may need other settings on a slippery su
 
 == From Preset Motion to Feedback and Planning
 
-#grid(columns: (1fr, 1fr, 1fr), gutter: 0.55cm, align: top,
-  card([Renaissance automata], [Leonardo's cart illustrates how a mechanism can encode a preset sequence of movements.]),
-  card([Grey Walter's tortoises], [Light and contact sensors influenced motion through simple electronic feedback.]),
-  card([Shakey, 1966–1972], [A mobile robot used a model and symbolic planning to pursue goals.]),
+#grid(columns: (1.45fr, 1fr), gutter: 20pt, align: horizon,
+  [
+    #lead[Preset motion]
+    #linebreak()
+    Leonardo's cart encoded a sequence of movements mechanically.
+    #v(0.5em)
+    #lead[Sensor feedback]
+    #linebreak()
+    Light and contact signals changed how Grey Walter's tortoises moved#cite(label("winfield2012robotics")).
+    #v(0.5em)
+    #lead[Symbolic planning]
+    #linebreak()
+    Shakey used a model of its surroundings to plan a sequence of actions#cite(label("nilsson1984shakey")).
+  ],
+  [
+    #align(center, image("images/T-07/shakey.jpg", height: 8.35cm))
+    #v(0.2em)
+    #caption[
+      Shakey at the Computer History Museum.
+      #link("https://commons.wikimedia.org/wiki/File:SRI_Shakey_robot,_1969,_Computer_History_Museum.jpg")[The wub],
+      #link("https://creativecommons.org/licenses/by-sa/4.0/")[CC BY-SA 4.0]. Resized.
+    ]
+  ],
 )
-
-#v(0.4em)
-Each example puts different information to work in selecting movement#cite(label("winfield2012robotics"))#cite(label("nilsson1984shakey")).
 
 #speaker-note[
   Keep this digression to eight minutes. Ask where the next turn comes from in
