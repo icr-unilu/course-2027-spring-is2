@@ -214,3 +214,25 @@
     height: height,
   )
 }
+
+#let delivery-episode(height: 6.75cm) = {
+  let frame(x, key, description, terminal: false) = (
+    (if terminal {
+      "<rect x='" + str(x) + "' y='139' width='133' height='113' rx='12' fill='#e0f0ed' stroke='#008273' stroke-width='2'/>"
+    } else { svg-rect(x, 139, 133, 113) }) +
+    svg-text(x + 67, 184, key) +
+    svg-text(x + 67, 225, description, style: "small")
+  )
+  let transition(x, label, reward) = (
+    svg-arrow("M" + str(x) + " 200 h114") +
+    svg-text(x + 56, 176, label, style: "small") +
+    svg-text(x + 56, 243, reward, style: "small")
+  )
+  diagram(
+    frame(49, "A", "Start") + transition(184, "Move", "−0.10") +
+    frame(302, "B", "Junction") + transition(437, "Move", "−0.10") +
+    frame(555, "C", "Arrival") + transition(690, "Dock", "+1.00") +
+    frame(808, "Done", "Terminal", terminal: true),
+    height: height,
+  )
+}
