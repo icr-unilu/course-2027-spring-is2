@@ -5,6 +5,41 @@
 #import "diagrams.typ": agent-environment
 #import "themes/robotics-diagrams.typ": belval-map
 
+#let hangzhou-credit = [
+  Photos: Matteo Magnini, #link("https://github.com/icr-unilu/course-2026-winter-stai/blob/98d81d687bee2248af50d4034c07b7ba51055913/01-artificial-intelligence-101.typ")[STAI · Artificial Intelligence 101]. Cropped for these slides.
+]
+
+#let robot-photo(filename, height) = block(
+  width: 100%, height: height, clip: true, radius: 4pt,
+  image("images/T-07/" + filename, width: 100%, height: 100%, fit: "cover"),
+)
+
+#let companion-photo(filename, name, description) = grid(
+  columns: (1.1fr, 1fr), gutter: 12pt, align: left + horizon,
+  robot-photo(filename, 4cm),
+  [
+    #text(weight: "semibold", size: 17pt, name)
+    #v(3pt)
+    #text(size: 14pt, fill: rgb("#53666a"), description)
+  ],
+)
+
+#let hangzhou-gallery(filename, name, description, first, second) = [
+  #grid(
+    columns: (1.2fr, 1fr), gutter: 18pt, align: top,
+    [
+      #robot-photo(filename, 7.9cm)
+      #v(6pt)
+      #text(weight: "bold", size: 21pt, name)
+      #h(9pt)
+      #text(size: 15pt, fill: rgb("#53666a"), description)
+    ],
+    stack(dir: ttb, spacing: 10pt, first, second),
+  )
+  #v(0.25em)
+  #caption(hangzhou-credit)
+]
+
 #show: embodied-theme.with([Embodied Agents])
 
 #title-slide()
@@ -15,6 +50,33 @@
 ]
 
 = Bodies in Environments
+
+== Embodied AI in Hangzhou
+
+#hangzhou-gallery(
+  "delivery-robot.jpg", [Delivery robot], [Navigates a building],
+  companion-photo("coffee-station.jpg", [Coffee station], [Positions a cup and pours.]),
+  companion-photo("humanoid-bartender.jpg", [Humanoid bartender], [Manipulates objects at a counter.]),
+)
+
+#speaker-note[
+  Compare the mobile platform with the fixed coffee station and the humanoid
+  bartender. Ask where each body's constraints enter the task. The delivery
+  platform motivates the fictional Belval case.
+]
+
+== Locomotion Beyond Corridors
+
+#hangzhou-gallery(
+  "unitree-quadruped.jpg", [Unitree quadruped], [Steps over uneven terrain],
+  companion-photo("agricultural-robot.jpg", [Agricultural robot], [Works between plant rows.]),
+  companion-photo("rover.jpg", [Rover prototype], [Traverses a rough surface.]),
+)
+
+#speaker-note[
+  Ask which parts of the terrain each platform can cross and what it needs
+  to sense. Use these practical differences to introduce the robot's body.
+]
 
 == A Delivery Robot at Belval
 
