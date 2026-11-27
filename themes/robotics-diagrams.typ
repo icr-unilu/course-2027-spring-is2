@@ -182,3 +182,35 @@
   )
   diagram(scene(48, 0, "Facing the door") + scene(518, 180, "Facing away"), height: height)
 }
+#let hybrid-control(height: 6.5cm) = {
+  let layer(x, y, w, label) = svg-rect(x, y, w, 68) + svg-text(x + w / 2, y + 43, label)
+  diagram(
+    layer(295, 17, 410, "Task planner") +
+    layer(295, 133, 410, "Executive") +
+    layer(295, 251, 410, "Reactive motion control") +
+    svg-arrow("M360 85 V131") + svg-text(346, 114, "plan", style: "small", anchor: "end") +
+    svg-arrow("M640 132 V87") + svg-text(654, 114, "replan request", style: "small", anchor: "start") +
+    svg-arrow("M360 201 V249") + svg-text(346, 230, "skill + target", style: "small", anchor: "end") +
+    svg-arrow("M640 251 V203") + svg-text(654, 230, "status", style: "small", anchor: "start") +
+    svg-text(134, 270, "Sensor readings", style: "small") + svg-arrow("M64 285 H293") +
+    svg-arrow("M706 285 H925") + svg-text(860, 270, "Motor commands", style: "small"),
+    height: height,
+  )
+}
+
+#let subsumption-example(height: 7.2cm) = {
+  let behaviour(y, label) = svg-rect(262, y, 326, 64) + svg-text(425, y + 42, label)
+  diagram(
+    behaviour(59, "Follow a corridor") +
+    behaviour(205, "Avoid contact") +
+    svg-rect(766, 205, 188, 64) + svg-text(860, 247, "Drive motors", style: "small") +
+    svg-arrow("M51 91 H259") + svg-text(155, 76, "Direction", style: "small") +
+    svg-arrow("M51 237 H259") + svg-text(155, 222, "Clearance", style: "small") +
+    svg-arrow("M590 237 H763") +
+    "<path d='M588 91 H677 V231' fill='none' stroke='#c26411' stroke-width='4' stroke-dasharray='9 5'/>" +
+    "<circle cx='677' cy='237' r='14' fill='#f8fafb' stroke='#c26411' stroke-width='4'/><text x='677' y='246' text-anchor='middle' style='font-weight:bold;font-size:23px;'>S</text>" +
+    svg-text(697, 157, "Override", style: "small", anchor: "start") +
+    svg-text(425, 164, "Both layers keep running", style: "small"),
+    height: height,
+  )
+}
