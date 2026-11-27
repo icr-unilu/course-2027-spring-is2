@@ -102,3 +102,83 @@
     height: height,
   )
 }
+#let rrt-step(height: 6.25cm) = {
+  let point(x, y, color) = (
+    "<circle cx='" + str(x) + "' cy='" + str(y) + "' r='7' fill='" + color + "'/>"
+  )
+  diagram(
+    svg-rect(156, 27, 686, 281) +
+    "<rect x='420' y='78' width='145' height='163' rx='5' fill='#53666a'/>" +
+    "<text x='492' y='168' text-anchor='middle' style='fill:white;font-size:25px'>Obstacle</text>" +
+    "<path d='M241 231 L325 229 L378 274 L487 277 M325 229 L365 132' fill='none' stroke='#23373b' stroke-width='4'/>" +
+    "<path d='M487 277 L584 272' fill='none' stroke='#eb811b' stroke-width='6'/>" +
+    "<path d='M584 272 L722 263' fill='none' stroke='#eb811b' stroke-width='3' stroke-dasharray='8 6'/>" +
+    point(241, 231, "#23373b") + point(325, 229, "#23373b") +
+    point(378, 274, "#23373b") + point(365, 132, "#23373b") +
+    point(487, 277, "#23373b") + point(584, 272, "#eb811b") +
+    point(722, 263, "#eb811b") + point(745, 111, "#23373b") +
+    svg-text(245, 208, "Start", style: "small") +
+    svg-text(490, 301, "Nearest", style: "small") +
+    svg-text(615, 299, "New vertex", style: "small") +
+    svg-text(723, 246, "Sample", style: "small") +
+    svg-text(745, 91, "Goal", style: "small"),
+    height: height,
+  )
+}
+#let exploration-map(height: 6.9cm) = {
+  let rows = (
+    "######???",
+    "#....A???",
+    "#..#.#???",
+    "#R.#..???",
+    "#....B???",
+    "######???",
+  )
+  let fills = (
+    "#": "#53666a",
+    ".": "#f8fafb",
+    "?": "#d1dcde",
+    "R": "#edf3f4",
+    "A": "#ffc681",
+    "B": "#ffc681",
+  )
+  let tile(x, y, cell) = (
+    "<rect x='" + str(x) + "' y='" + str(y) +
+    "' width='44' height='44' fill='" + fills.at(cell) +
+    "' stroke='#53666a' stroke-width='1'/>"
+  )
+  let grid-drawing = rows.enumerate().map(((row, line)) => {
+    line.clusters().enumerate().map(((col, cell)) => {
+      let x = 160 + 44 * col
+      let y = 36 + 44 * row
+      tile(x, y, cell) + if ("R", "A", "B").contains(cell) {
+        svg-text(x + 22, y + 31, cell, style: "small")
+      } else { "" }
+    }).join()
+  }).join()
+  let legend = (("#", "Occupied"), (".", "Known free"), ("?", "Unexplored"), ("A", "Candidate frontier"))
+  diagram(
+    grid-drawing +
+    legend.enumerate().map(((index, entry)) => {
+      let y = 54 + 60 * index
+      tile(625, y, entry.at(0)) + svg-text(687, y + 31, entry.at(1), style: "small", anchor: "start")
+    }).join(),
+    height: height,
+  )
+}
+
+#let pose-comparison(height: 7.8cm) = {
+  let scene(x, heading, label) = (
+    "<g transform='translate(" + str(x) + ",0)'>" +
+    "<rect x='0' y='18' width='433' height='277' rx='14' fill='#edf3f4'/>" +
+    "<path d='M35 112 H156 M273 112 H398 M35 245 H398' fill='none' stroke='#53666a' stroke-width='8' stroke-linecap='round'/>" +
+    svg-text(215, 94, "Open doorway", style: "small") +
+    "<g transform='translate(215,177) rotate(" + str(heading) + ")'>" +
+    "<circle cx='0' cy='0' r='39' fill='#f8fafb' stroke='#23373b' stroke-width='3'/>" +
+    "<path d='M0 21 V-24 M-10 -13 L0 -24 L10 -13' stroke='#eb811b' fill='none' stroke-width='6' stroke-linecap='round'/>" +
+    "</g>" +
+    svg-text(215, 281, label, style: "small") +
+    "</g>"
+  )
+  diagram(scene(48, 0, "Facing the door") + scene(518, 180, "Facing away"), height: height)
+}
